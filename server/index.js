@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const cors = require('cors')
+const cors = require("cors");
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -34,6 +34,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
+app.use('/api/product', require('./routes/product'));
+
+// router
+app.post('/api/product/image'); //??
 
 
 //use this to show the image you have in node js server to client (react js)

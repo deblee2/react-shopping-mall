@@ -35,6 +35,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         }, [])
 
         return (
+            // props를 이용해서 유저의 모든 정보를 넣어준 것
             <SpecificComponent {...props} user={user} />
         )
     }
