@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FaCode } from "react-icons/fa";
 import axios from "axios";
 import { Icon, Col, Card, Row } from 'antd';
- 
+import CheckBox from './Sections/CheckBox';
+import { continents } from './Sections/Datas';
+
 const { Meta } = Card;
 
 function LandingPage() {
@@ -37,6 +39,11 @@ function LandingPage() {
         </Col>
     })
 
+
+    const handleFilters = () => {
+
+    }
+    
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
             <div div style={{ textAlign: 'center'}}>
@@ -44,6 +51,11 @@ function LandingPage() {
             </div>
 
             {/* Filter */}
+
+            {/* CheckBox */}
+                <CheckBox list={continents} handleFilters={filter => handleFilters(filters, "continents")}/>
+            {/* RadioBox */}
+
 
             {/* Search */}
 
