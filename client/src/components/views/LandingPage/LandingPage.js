@@ -10,6 +10,10 @@ const { Meta } = Card;
 function LandingPage() {
 
     const [Products, setProducts] = useState([])
+    const [Filter, setFilter] = useState({
+        continents: [],
+        price: []
+    })
 
     useEffect(() => {
 
@@ -39,11 +43,17 @@ function LandingPage() {
         </Col>
     })
 
-
-    const handleFilters = () => {
-
+    const showFilteredResults = (filters) => {
+        
     }
+
+    const handleFilters = (filters, category) => {
+        const newFilters = {...Filters }
+        newFilters[category] = filters //continents 아니면 price에
     
+        showFilteredResults()
+    }
+
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
             <div div style={{ textAlign: 'center'}}>
