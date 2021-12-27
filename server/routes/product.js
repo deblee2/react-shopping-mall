@@ -48,15 +48,43 @@ router.post('/', (req, res) => { //??
 
 router.post('/products', (req, res) => {
   // product collection에 들어 있는 모든 상품 정보를 가져오기
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit): 20;
+  let skip = req.body.skip ? parseInt(req.body.skip): 0;
+
+  let findArgs = {};
+  for(let key in req.body.filters) {
+    if(req.body.filters[key].length > 0){
+
+      if (key === "price") {
+        findArgs[key] = {
+          // greater than equal
+          $gte: req.body.filters[key][0],
+          // less than equal
+          $lte: req.body.filters[key][1]
+        }
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+
+  console.log('findArgs', findArgs)
 
   // Product 모델 이용해서 find 메소드 사용
-  Product.find()
+  Product.find(findArgs)
     // 상품을 누가 등록했는지에 대한 정보가 writer의 unique한 아이디가 나와있다
     // 근데 등록한 사람의 이름, 이메일 주소 등이 다 필요함
     .populate("writer") // 이 사람에 대한 모든 정보를 가져올 수 있음
+    .skip(skip)
+    .limit(limit)
     .exec((err, productInfo) => {
       if(err) return res.status(400).json({ success: false, err })
-      return res.status(200).json({ success: true, productInfo })
+      return res.status(200).json({ 
+        success: true, productInfo,
+        postSize: productInfo.length 
+      })
     })
 
 })
